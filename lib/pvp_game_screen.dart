@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'resultscreen.dart';
 
 class PvpGameScreen extends StatefulWidget {
   final String player1;
@@ -25,15 +26,43 @@ class _PvpGameScreenState extends State<PvpGameScreen> {
   bool roundFinished = false;
 
   void compareChoices() {
+    String winner;
+
     if (player1Choice == player2Choice) {
-      print("Draw");
+      winner = "DRAW";
     } else if ((player1Choice == "Stone" && player2Choice == "Scissor") ||
         (player1Choice == "Paper" && player2Choice == "Stone") ||
         (player1Choice == "Scissor" && player2Choice == "Paper")) {
-      print("${widget.player1} Wins");
+      player1Score++;
+      winner = "${widget.player1} WINS";
     } else {
-      print("${widget.player2} Wins");
+      player2Score++;
+      winner = "${widget.player2} WINS";
     }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultScreen(
+          player1: widget.player1,
+          player2: widget.player2,
+          player1Choice: player1Choice,
+          player2Choice: player2Choice,
+          player1Score: player1Score,
+          player2Score: player2Score,
+          winner: winner,
+          onPlayAgain: () {
+            setState(() {
+              player1Choice = "";
+              player2Choice = "";
+              player1Turn = true;
+              currentPlayer = widget.player1;
+              roundFinished = false;
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -298,7 +327,7 @@ class _PvpGameScreenState extends State<PvpGameScreen> {
                       } else {
                         setState(() {
                           player2Choice = "Scissor";
-                          roundFinished=true;
+                          roundFinished = true;
                         });
 
                         compareChoices();

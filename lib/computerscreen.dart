@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'PvpScreen.dart';
+import 'resultscreen.dart';
+
 class ComputerScreen extends StatefulWidget {
   const ComputerScreen({super.key});
 
@@ -11,6 +13,10 @@ class ComputerScreen extends StatefulWidget {
 class _ComputerScreenState extends State<ComputerScreen> {
   String playerChoice = "";
   String computerChoice = "";
+  String result = "";
+  int playerScore = 0;
+  int computerScore = 0;
+
   void computerMove() {
     List<String> choices = ["Stone", "Paper", "Scissor"];
 
@@ -18,24 +24,45 @@ class _ComputerScreenState extends State<ComputerScreen> {
 
     computerChoice = choices[random.nextInt(3)];
 
-    print(computerChoice);
   }
 
   void compareChoices() {
-  if (playerChoice == computerChoice) {
-    print("Draw");
-  } 
-  else if (
-    (playerChoice == "Stone" && computerChoice == "Scissor") ||
-    (playerChoice == "Paper" && computerChoice == "Stone") ||
-    (playerChoice == "Scissor" && computerChoice == "Paper")
-  ) {
-    print("You Win");
-  } 
-  else {
-    print("You Lose");
+    String winner;
+
+    if (playerChoice == computerChoice) {
+      winner = "DRAW";
+    } else if ((playerChoice == "Stone" && computerChoice == "Scissor") ||
+        (playerChoice == "Paper" && computerChoice == "Stone") ||
+        (playerChoice == "Scissor" && computerChoice == "Paper")) {
+      playerScore++;
+      winner = "YOU WIN";
+    } else {
+      computerScore++;
+      winner = "YOU LOSE";
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultScreen(
+          player1: "YOU",
+          player2: "COMPUTER",
+          player1Choice: playerChoice,
+          player2Choice: computerChoice,
+          player1Score: playerScore,
+          player2Score: computerScore,
+          winner: winner,
+          onPlayAgain: () {
+            setState(() {
+              playerChoice = "";
+              computerChoice = "";
+              result = "";
+            });
+          },
+        ),
+      ),
+    );
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -176,12 +203,9 @@ class _ComputerScreenState extends State<ComputerScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        playerChoice = "Stone";
-                        print(playerChoice);
-                        computerMove();
-                        compareChoices();
-                      });
+                      playerChoice = "Stone";
+                      computerMove();
+                      compareChoices();
                     },
                     child: Container(
                       height: 145,
@@ -214,11 +238,9 @@ class _ComputerScreenState extends State<ComputerScreen> {
 
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        playerChoice = "Paper";
-                        print(playerChoice);
-                        compareChoices();
-                      });
+                      playerChoice = "Paper";
+                      computerMove();
+                      compareChoices();
                     },
                     child: Container(
                       height: 145,
@@ -248,11 +270,9 @@ class _ComputerScreenState extends State<ComputerScreen> {
 
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        playerChoice = "Scissor";
-                        print(playerChoice);
-                        compareChoices();
-                      });
+                      playerChoice = "Scissor";
+                      computerMove();
+                      compareChoices();
                     },
                     child: Container(
                       height: 145,
