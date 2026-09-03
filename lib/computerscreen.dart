@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-
+import 'PvpScreen.dart';
 class ComputerScreen extends StatefulWidget {
   const ComputerScreen({super.key});
 

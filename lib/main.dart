@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'computerscreen.dart';
-import 'pvpscreen.dart';
+import 'PvpScreen.dart';
 import 'pvp_game_screen.dart';
 
 void main() {

@@ -138,7 +138,7 @@ class _PvpScreenState extends State<PvpScreen> {
                 const SizedBox(height: 25),
 
                 TextField(
-                  controller: player1Controller,
+                  controller: player2Controller,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 17,
