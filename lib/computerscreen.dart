@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class ComputerScreen extends StatefulWidget {
   const ComputerScreen({super.key});
@@ -8,6 +9,34 @@ class ComputerScreen extends StatefulWidget {
 }
 
 class _ComputerScreenState extends State<ComputerScreen> {
+  String playerChoice = "";
+  String computerChoice = "";
+  void computerMove() {
+    List<String> choices = ["Stone", "Paper", "Scissor"];
+
+    Random random = Random();
+
+    computerChoice = choices[random.nextInt(3)];
+
+    print(computerChoice);
+  }
+
+  void compareChoices() {
+  if (playerChoice == computerChoice) {
+    print("Draw");
+  } 
+  else if (
+    (playerChoice == "Stone" && computerChoice == "Scissor") ||
+    (playerChoice == "Paper" && computerChoice == "Stone") ||
+    (playerChoice == "Scissor" && computerChoice == "Paper")
+  ) {
+    print("You Win");
+  } 
+  else {
+    print("You Lose");
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,18 +164,25 @@ class _ComputerScreenState extends State<ComputerScreen> {
               const Text(
                 "CHOOSE YOUR MOVE",
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+                  color: Color.fromARGB(255, 239, 227, 3),
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 70),
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        playerChoice = "Stone";
+                        print(playerChoice);
+                        computerMove();
+                        compareChoices();
+                      });
+                    },
                     child: Container(
                       height: 145,
                       width: 105,
@@ -177,7 +213,13 @@ class _ComputerScreenState extends State<ComputerScreen> {
                   const SizedBox(width: 15),
 
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        playerChoice = "Paper";
+                        print(playerChoice);
+                        compareChoices();
+                      });
+                    },
                     child: Container(
                       height: 145,
                       width: 105,
@@ -205,7 +247,13 @@ class _ComputerScreenState extends State<ComputerScreen> {
                   const SizedBox(width: 15),
 
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        playerChoice = "Scissor";
+                        print(playerChoice);
+                        compareChoices();
+                      });
+                    },
                     child: Container(
                       height: 145,
                       width: 105,
