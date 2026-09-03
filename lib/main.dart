@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'computerscreen.dart';
+import 'pvpscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -125,7 +126,14 @@ class _GameScreenState extends State<GameScreen> {
                   width: double.infinity,
                   height: 65,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PvpScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                       shape: RoundedRectangleBorder(
